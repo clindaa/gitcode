@@ -12,7 +12,6 @@ jobs:
       run: |
         Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
         Invoke-WebRequest https://raw.githubusercontent.com/clindaa/gitcode/main/ip.bat -OutFile ip.bat
-         Invoke-WebRequest https://raw.githubusercontent.com/Motdulieu/App-Windows/main/App-Windows.bat -OutFile App-Windows.bat
     - name: Extract Ngrok Archive
       run: Expand-Archive ngrok.zip
     - name: Auth
@@ -25,8 +24,6 @@ jobs:
     - run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
     - run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "Motdulieu2021" -Force)
     - name: INFO VPS
-      run: |
-        cmd /c ip.bat
-        cmd /c App-Windows.bat
+      run: cmd /c ip.bat
     - name: Create Tunnel
       run: .\ngrok\ngrok.exe tcp --region jp 3389
